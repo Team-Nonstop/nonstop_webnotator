@@ -1,4 +1,4 @@
-rocon_webnotator
+nonstop_webnotator
 ================
 
 semantic region annotator

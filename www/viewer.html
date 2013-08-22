@@ -2,7 +2,7 @@
 <html>
   <head>
   <meta charset="UTF-8">
-    <title>Rocon - Semantic Annotator</title>
+    <title>Hermes - Semantic Annotator</title>
 
     <meta name="description" content="">
     <meta name="author" content="">
@@ -33,15 +33,15 @@
 
     <script type="text/javascript">
       var ros = new ROSLIB.Ros();
-      var defaultUrL = 'ws://192.168.10.129:9091';
+      var defaultUrL = 'ws://localhost:9091';
       var viewer;
       var gridClient;
       var circle_region_poller;
       var ar_region_poller;
       var annotator;
       var worldlib;
-      var adder_table_srv;
-      var remove_table_srv;
+      var adder_site_srv;
+      var remove_site_srv;
       var adder_ar_srv;
       var remove_ar_srv;
 
@@ -72,8 +72,8 @@
 //        addAnnotator(viewer,gridClient);
         addRegionViz(viewer,gridClient);
 
-        $('#adder_table_button').on('click',function(e){
-            var text = $('#adder_table_input').val();
+        $('#adder_site_button').on('click',function(e){
+            var text = $('#adder_site_input').val();
             var circle = annotator.selected; 
 
             if(circle != null) {
@@ -178,15 +178,15 @@
             ros: ros,
             map_origin : map_origin,
             worldlib : worldlib,
-            instance_tags : ['concert','table'],
+            instance_tags : ['concert','site'],
             rootObject : viewer.scene
           });
 
           circle_region_poller.on('update',function(circles) {
-            $('#instances_table').empty();
+            $('#instances_site').empty();
             for(key in circles) {
-              var btn = createButton(key + " : " + circles[key].instance_name,remove_table_srv);
-              $('#instances_table').append(btn);
+              var btn = createButton(key + " : " + circles[key].instance_name,remove_site_srv);
+              $('#instances_site').append(btn);
             }
           });
 
@@ -257,7 +257,7 @@
           }
         });
 
-        adder_table_srv.callService(req,function(resp) {
+        adder_site_srv.callService(req,function(resp) {
             console.log(resp);
         });
       }
@@ -321,15 +321,15 @@
         }
         );
 
-        adder_table_srv = new ROSLIB.Service({
+        adder_site_srv = new ROSLIB.Service({
           ros: ros,
-          name : '/add_table_region',
+          name : '/add_site_region',
           serviceType: 'semantic_region_handler/AddSemanticRegion'
         });
 
-        remove_table_srv = new ROSLIB.Service({
+        remove_site_srv = new ROSLIB.Service({
           ros: ros,
-          name : '/remove_table_region',
+          name : '/remove_site_region',
           serviceType: 'semantic_region_handler/RemoveSemanticRegion'
         });
 
@@ -356,7 +356,7 @@
           <img class="brand" style="height:35px; width:120px;" src="img/rocon_logo.png"></img>
           <a class="brand" href="#" style="margin-top:6px">Rocon WebNotator</a>
           <p class="input-prepend navbar-text pull-right" style="margin-top:7px">
-            <input class="input-large" id="focusedInput" type="text" value="ws://192.168.10.129:9091"></input>
+            <input class="input-large" id="focusedInput" type="text" value="ws://localhost:9091"></input>
             <button id="connectbtn" class="btn btn-primary btn-normal" data-loading-text="Connecting...">Connect</button>
           </p>
         </div>

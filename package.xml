@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>rocon_webnotator</name>
+  <name>nonstop_webnotator</name>
   <version>0.0.0</version>
-  <description>The rocon_webnotator package</description>
+  <description>The nonstop_webnotator package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
